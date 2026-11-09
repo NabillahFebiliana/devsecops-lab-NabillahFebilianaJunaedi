@@ -2,7 +2,11 @@ const express = require('express');
 const mysql = require('mysql');
 
 const app = express();
-
+const db = mysql.createConnection({
+  host: 'localhost',
+  user: 'root',
+  database: 'appdb'
+});
 // VULNERABILITY 1: Hardcoded Secret Key
 const API_SECRET_KEY = "SUPER_SECRET_KEY_12345!";
 

@@ -1,0 +1,19 @@
+rules:
+  - id: hardcoded-secret-key
+    languages: [javascript]
+    severity: ERROR
+    message: Hardcoded secret terdeteksi. Pindahkan ke environment variable (.env).
+    patterns:
+      - pattern: const $VAR = "..."
+      - metavariable-regex:
+          metavariable: $VAR
+          regex: (?i).*(secret|password|passwd|api_?key|token).*
+
+  - id: sql-injection-string-concat
+    languages: [javascript]
+    severity: ERROR
+    message: Potensi SQL Injection karena query dibangun dengan string concatenation. Gunakan parameterized query.
+    pattern-either:
+      - pattern: let $Q = "..." + $X;
+      - pattern: const $Q = "..." + $X;
+      - pattern: var $Q = "..." + $X;
